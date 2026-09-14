@@ -58,3 +58,6 @@ research/captures/*
 !research/captures/.gitkeep
 *.btsnoop
 btsnoop_hci.log
+
+# Built APKs
+*.apk

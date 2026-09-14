@@ -5,6 +5,7 @@
 /// and nothing is pre-filled with a payload we think might work (rule 2).
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class CharacteristicScreen extends ConsumerStatefulWidget {
 class _CharacteristicScreenState extends ConsumerState<CharacteristicScreen> {
   final TextEditingController _writeController = TextEditingController();
   final List<BlePacket> _activity = [];
+  StreamSubscription<BlePacket>? _activitySub;
 
   bool _busy = false;
   bool _withoutResponse = false;
@@ -52,7 +54,7 @@ class _CharacteristicScreenState extends ConsumerState<CharacteristicScreen> {
 
     // Show only this characteristic's traffic, taken off the same bus the
     // packet monitor and the recorder use.
-    ref.read(eventBusProvider).stream.listen((packet) {
+    _activitySub = ref.read(eventBusProvider).stream.listen((packet) {
       if (packet.characteristicUuid != _characteristic.uuid) return;
       if (!mounted) return;
       setState(() {
@@ -64,6 +66,7 @@ class _CharacteristicScreenState extends ConsumerState<CharacteristicScreen> {
 
   @override
   void dispose() {
+    _activitySub?.cancel();
     _writeController.dispose();
     super.dispose();
   }

@@ -44,11 +44,21 @@ Android SDK. Android is the development target; iOS is configured but untested.
 
 ```bash
 flutter pub get
-flutter analyze          # expect: no issues
-flutter test             # expect: all pass
-flutter run              # on a physical Android device
-flutter build apk --debug
+flutter analyze --fatal-infos   # expect: no issues
+flutter test                    # expect: all pass
+flutter run                     # on a physical Android device
+
+# A small, sideloadable APK (signed with the debug key):
+flutter build apk --release --split-per-abi
+# -> build/app/outputs/flutter-apk/app-arm64-v8a-release.apk  (~18 MB)
 ```
+
+Install it with `adb install -r app-arm64-v8a-release.apk`, or copy it to the
+phone and open it. Most modern phones are `arm64-v8a`.
+
+The release build requests only the Bluetooth permissions and, on Android 11
+and below, location — **no INTERNET permission**. Captured evidence cannot
+leave the phone except through an export you perform yourself.
 
 **A physical Android phone is required.** An emulator has no Bluetooth radio
 that can reach a real peripheral, so scanning will find nothing in one.

@@ -21,7 +21,7 @@ Writing one would mean inventing a format. Evidence first.
 |---|---|
 | **Nearby Devices** | Unfiltered BLE scan. Name, address, RSSI, advertised service UUIDs, manufacturer and service data as raw hex. Filter by anything; star the watch to pin it to the top. |
 | **Connection** | Connect, disconnect, reconnect with capped backoff. Every state is shown — Disconnected, Connecting, Connected, Reconnecting, Error — with the platform's own error text, never a generic "something went wrong". |
-| **GATT Explorer** | Every discovered service, characteristic, property and descriptor. |
+| **GATT Explorer** | Every discovered service, characteristic, property and descriptor, with Bluetooth SIG names where the UUID is SIG-defined. *Read all* and *Subscribe all* sweep the whole device and report every refusal verbatim. The full tree is recorded in the session export. |
 | **Characteristic** | Read, write raw hex (with or without response), subscribe and unsubscribe. Values shown as hex, ASCII and an offset dump. |
 | **Packet Monitor** | Live feed of every BLE operation: time, direction, operation, attribute, payload, length. Pause, clear, filter by direction or characteristic, copy. |
 | **Capture Sessions** | Named experiments — `watchface-A`, `change-time` — recorded to SQLite and exported as JSON. |
@@ -150,7 +150,7 @@ These are enforced in code and in tests, not just asserted here.
 flutter test
 ```
 
-156 tests. The ones that matter most:
+182 tests. The ones that matter most:
 
 - **btsnoop parsing** against byte-level fixtures built to the spec, not mocks:
   header validation, epoch conversion, L2CAP reassembly across ACL fragments,
@@ -158,6 +158,8 @@ flutter test
   unresolved unless the capture itself identified it.
 - **Export schema**, pinned by a golden test, because captures recorded by an
   older build have to stay readable.
+- **Database migration**, tested against the v1 schema frozen from the commit
+  that shipped it, so sessions already on a phone survive an update.
 - **Connection state machine**, driven by a fake transport: backoff growth, the
   give-up path, and not retrying into a switched-off radio.
 
@@ -180,3 +182,7 @@ commercial build from this code must change that and buy the commercial licence.
 - [docs/APK_ANALYSIS.md](docs/APK_ANALYSIS.md) — static analysis of the
   official app.
 - [docs/PROTOCOL_STATUS.md](docs/PROTOCOL_STATUS.md) — the evidence ledger.
+- [docs/INVESTIGATIONS.md](docs/INVESTIGATIONS.md) — the open questions
+  (watch faces, emoji on iPhone, the crown), with hypotheses and experiments.
+- [docs/DEVICE_SESSION.md](docs/DEVICE_SESSION.md) — the brief for a Claude
+  Code session on the machine the phone is plugged into.

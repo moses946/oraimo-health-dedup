@@ -1,6 +1,7 @@
 # Protocol status
 
-**Last updated:** at project start, before any capture has been taken.
+**Last updated:** before the first contact with the real watch. Investigation
+plans are in [INVESTIGATIONS.md](INVESTIGATIONS.md).
 
 ## What is known about the Oraimo Watch 6R (OSW-823) protocol
 
@@ -51,7 +52,27 @@ been broken.
 
 ## Open hypotheses
 
-*(none yet)*
+### E1 — text handling stops at the Basic Multilingual Plane
+
+*Status: UNKNOWN. Not yet tested.*
+
+**Claim:** on the iPhone path, the watch can render characters up to U+FFFF
+(at most 3 UTF-8 bytes) but not above it, which is where nearly every emoji
+lives (4 bytes).
+
+**Why it is plausible:** emoji go missing on the iPhone; 4-byte UTF-8 is a
+classic boundary for embedded text handling. That is a reason to test it,
+not evidence for it.
+
+**Supported if** the glyph test shows accented Latin and BMP symbols
+(`é`, `★`) rendering while 4-byte emoji (`😀`) do not.
+
+**Refuted if** BMP symbols fail too (the limit is lower), or any 4-byte emoji
+renders correctly.
+
+**Depends on** a second, also unconfirmed, hypothesis: that the iPhone
+delivers notifications to the watch via ANCS. If true, the fix is firmware and
+out of scope for this project.
 
 ## Disproven
 

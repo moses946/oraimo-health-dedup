@@ -290,6 +290,23 @@ in O3, that part is evidence; the behaviour around it is not.
   `config_WxH_XxY.txt` filenames) read by the UTE SDK
   (`com.yc.utesdk.watchface.open.WatchFaceUtil`) and one other vendor's
   code. The `TOPSTEP`-signed `.bin` dials belong to the TS vendor.
+- **A17 — where market faces come from.** Oraimo code never calls the
+  crrepa SDK's own MOYOUNG face client (`com/crrepa/b1/*`,
+  `api.moyoung.com/faces/...`). Faces are listed by Oraimo's backend through
+  Retrofit interfaces `rh/a` and `rh/b`, all `POST` (obfuscated annotations,
+  read by usage): `api/clockDial/index` (query `count`,
+  `supportBuyWatchFace`, `supportBuyType`; returns categories),
+  `api/clockDial/getByCategoryId` (query `categoryId`, `supportBuyWatchFace`,
+  `supportBuyType`; returns `DialInfoEntity` list), `downloadComplete`,
+  `myCloudClockDial`, `getOwnedList`, `getOwnStatus`, `exchangeByCode`.
+  The face-list calls carry `TAG_FIXED_DOMAIN:true`, which interceptor
+  `rh/n` pins to `https://health-api.oraimo.com/`. Each entry has
+  `resourceUrl`, `picUrl`, `fileSize`, price and ownership fields; the file's
+  host is in the server's answer, not the APK. Interceptor `rh/c` adds
+  `token`, `timestamp`, `language`, phone brand/model/OS, app version and
+  store, and the connected watch's `deviceSupplierName`, `deviceType`,
+  `deviceDisplayName`, `deviceModel`, `deviceMac` and
+  `deviceFirmwareVersion` to every request.
 - **A10 — UUIDs not accounted for.** `ae00`/`ae01`/`ae02` appear only in
   another vendor's table (`utenif/utenelse`, the UTE SDK). `190e` and `0004`
   appear nowhere in the DEX strings or native libraries; `00000003-…` only

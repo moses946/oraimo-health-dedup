@@ -149,6 +149,12 @@ class InstrumentedBleTransport implements BleTransport {
               0, (sum, s) => sum + s.characteristics.length);
           return '${services.length} services, $characteristics characteristics';
         },
+        // The whole attribute database, as discovered. This is the first
+        // real evidence about an unknown device, so it travels with the
+        // packet into whatever session is recording.
+        detailOf: (services) => {
+          'services': services.map((s) => s.toJson()).toList(),
+        },
       );
 
   @override
@@ -362,6 +368,7 @@ class InstrumentedBleTransport implements BleTransport {
     String? characteristicUuid,
     String? note,
     String Function(T result)? describeResult,
+    Map<String, dynamic> Function(T result)? detailOf,
   }) async {
     try {
       final result = await action();
@@ -371,6 +378,7 @@ class InstrumentedBleTransport implements BleTransport {
         serviceUuid: serviceUuid,
         characteristicUuid: characteristicUuid,
         note: describeResult != null ? describeResult(result) : note,
+        detail: detailOf?.call(result),
       );
       return result;
     } catch (e) {

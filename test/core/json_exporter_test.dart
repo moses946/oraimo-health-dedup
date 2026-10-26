@@ -56,7 +56,7 @@ void main() {
         exportedAt: DateTime.utc(2026, 3, 2, 10, 0, 0),
       );
 
-      expect(json['schemaVersion'], 1);
+      expect(json['schemaVersion'], 2);
       expect(json['exportedAt'], '2026-03-02T10:00:00.000Z');
       expect(json['generator'], 'oraimo_lab');
       expect(json['startedAt'], '2026-03-01T21:43:12.000Z');
@@ -85,7 +85,39 @@ void main() {
         'status': 'ok',
         'error': null,
         'note': null,
+        'detail': null,
       });
+    });
+
+    test('a discovery packet exports the attribute database it found', () {
+      final discovery = BlePacket(
+        sessionId: 'ses-1',
+        seq: 2,
+        timestamp: DateTime.utc(2026, 3, 1, 21, 43, 13),
+        elapsedUs: 1000000,
+        direction: PacketDirection.phoneToWatch,
+        operation: PacketOperation.discoverServices,
+        payloadHex: '',
+        note: '1 services, 0 characteristics',
+        detail: const {
+          'services': [
+            {'uuid': '0000180a-0000-1000-8000-00805f9b34fb'}
+          ],
+        },
+      );
+      final json = buildSessionExport(session: session, packets: [discovery]);
+      final event = (json['events'] as List).single as Map<String, dynamic>;
+      expect(event['detail'], {
+        'services': [
+          {'uuid': '0000180a-0000-1000-8000-00805f9b34fb'}
+        ],
+      });
+      // And it survives the trip through JSON text and back.
+      final restored = BlePacket.fromJson(
+          (jsonDecode(encodeSessionExport(session: session, packets: [discovery]))
+                  as Map<String, dynamic>)['events'][0] as Map<String, dynamic>);
+      expect((restored.detail!['services'] as List).single['uuid'],
+          '0000180a-0000-1000-8000-00805f9b34fb');
     });
 
     test('an unidentified attribute exports a null uuid, never a guess', () {
@@ -131,7 +163,7 @@ void main() {
 
     test('output is pretty-printed so a diff of two captures is readable', () {
       final encoded = encodeSessionExport(session: session, packets: packets);
-      expect(encoded, contains('\n  "schemaVersion": 1'));
+      expect(encoded, contains('\n  "schemaVersion": 2'));
     });
   });
 
@@ -163,7 +195,7 @@ void main() {
         exportedAt: DateTime.utc(2026, 3, 2),
       );
 
-      expect(json['schemaVersion'], 1);
+      expect(json['schemaVersion'], 2);
       expect((json['sessions'] as List).single['events'], hasLength(2));
       expect((json['observations'] as List).single['evidencePacketIds'], [1, 2]);
       expect((json['hypotheses'] as List).single['status'], 'TESTING');

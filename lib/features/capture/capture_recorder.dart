@@ -142,22 +142,10 @@ class CaptureRecorder {
     final batch = List<BlePacket>.from(_pending);
     _pending.clear();
     try {
-      await _repository.insertPackets(batch.map((p) => BlePacket(
-            sessionId: p.sessionId,
-            seq: p.seq,
-            timestamp: p.timestamp,
-            elapsedUs: p.elapsedUs - _baseElapsedUs,
-            direction: p.direction,
-            operation: p.operation,
-            payloadHex: p.payloadHex,
-            serviceUuid: p.serviceUuid,
-            characteristicUuid: p.characteristicUuid,
-            descriptorUuid: p.descriptorUuid,
-            attHandle: p.attHandle,
-            status: p.status,
-            error: p.error,
-            note: p.note,
-          )));
+      // copyWith rather than rebuilding the packet field by field: a rebuild
+      // silently drops any field added to BlePacket later.
+      await _repository.insertPackets(batch.map(
+          (p) => p.copyWith(elapsedUs: p.elapsedUs - _baseElapsedUs)));
     } catch (e, s) {
       // Put them back rather than losing them; a failed write is reported, not
       // swallowed (rule 9).

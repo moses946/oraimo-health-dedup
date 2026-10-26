@@ -203,7 +203,7 @@ void main() {
         packets: await repo.listPackets('s1'),
       );
 
-      expect(json['schemaVersion'], 1);
+      expect(json['schemaVersion'], 2);
       expect((json['session'] as Map)['source'], 'live');
       expect((json['device'] as Map)['address'], 'AA:BB:CC:DD:EE:FF');
       final events = json['events'] as List;

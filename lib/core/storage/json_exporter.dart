@@ -13,7 +13,12 @@ import '../models/capture_session.dart';
 import '../models/protocol_records.dart';
 
 /// Version of the export envelope, not of the app.
-const int kExportSchemaVersion = 1;
+///
+/// History:
+///   1 — initial envelope.
+///   2 — each event may carry a `detail` object (null for most). Additive:
+///       a reader written for v1 that ignores unknown keys still works.
+const int kExportSchemaVersion = 2;
 
 const JsonEncoder _pretty = JsonEncoder.withIndent('  ');
 

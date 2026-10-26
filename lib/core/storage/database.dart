@@ -7,8 +7,12 @@ library;
 
 import 'package:sqflite/sqflite.dart';
 
-/// Bumped whenever the schema changes; [_migrate] handles the upgrade.
-const int kSchemaVersion = 1;
+/// Bumped whenever the schema changes; [migrateSchema] handles the upgrade.
+///
+/// History:
+///   1 — initial schema.
+///   2 — `packets.detail_json`, structured detail such as the GATT tree.
+const int kSchemaVersion = 2;
 
 const String kPacketsTable = 'packets';
 const String kSessionsTable = 'capture_sessions';
@@ -67,6 +71,7 @@ Future<void> createSchema(Database db, int version) async {
       status TEXT NOT NULL,
       error TEXT,
       note TEXT,
+      detail_json TEXT,
       FOREIGN KEY (session_id) REFERENCES $kSessionsTable (id) ON DELETE CASCADE
     )
   ''');
@@ -109,13 +114,23 @@ Future<void> createSchema(Database db, int version) async {
   await batch.commit(noResult: true);
 }
 
-/// No upgrades exist yet. When the first one does, add it here rather than
-/// recreating the database: stored captures are experimental results and must
-/// survive an app update.
+/// Upgrades an existing database one version at a time.
+///
+/// Captures stored on a phone are experimental results that may be impossible
+/// to reproduce, so a migration must never recreate a table or drop data: each
+/// step only adds. Steps run in order, so a v1 database opened by a v3 build
+/// passes through v2 on the way.
 Future<void> migrateSchema(Database db, int oldVersion, int newVersion) async {
-  throw StateError(
-    'no migration defined from schema v$oldVersion to v$newVersion',
-  );
+  for (var version = oldVersion + 1; version <= newVersion; version++) {
+    switch (version) {
+      case 2:
+        await db.execute('ALTER TABLE $kPacketsTable ADD COLUMN detail_json TEXT');
+      default:
+        throw StateError(
+          'no migration defined to schema v$version (from v$oldVersion)',
+        );
+    }
+  }
 }
 
 Future<void> onConfigure(Database db) async {

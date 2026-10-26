@@ -109,6 +109,7 @@ class BlePacket {
     this.status = PacketStatus.ok,
     this.error,
     this.note,
+    this.detail,
   });
 
   /// Database row id. Null until stored.
@@ -160,6 +161,13 @@ class BlePacket {
   /// Free-text operator annotation, e.g. "tapped Sync in Oraimo Health here".
   final String? note;
 
+  /// Structured result of a local operation, for things that are not wire
+  /// bytes and so must never go in [payloadHex] (rule 4). Today: the full
+  /// attribute database returned by service discovery, so that the most
+  /// important result of reconnaissance is part of the exported evidence
+  /// rather than something read off the screen and transcribed by hand.
+  final Map<String, dynamic>? detail;
+
   /// Payload length in bytes.
   int get payloadLength => payloadHex.length ~/ 2;
 
@@ -181,12 +189,13 @@ class BlePacket {
     return '—';
   }
 
-  BlePacket copyWith({int? id, String? sessionId, int? seq}) => BlePacket(
+  BlePacket copyWith({int? id, String? sessionId, int? seq, int? elapsedUs}) =>
+      BlePacket(
         id: id ?? this.id,
         sessionId: sessionId ?? this.sessionId,
         seq: seq ?? this.seq,
         timestamp: timestamp,
-        elapsedUs: elapsedUs,
+        elapsedUs: elapsedUs ?? this.elapsedUs,
         direction: direction,
         operation: operation,
         payloadHex: payloadHex,
@@ -197,6 +206,7 @@ class BlePacket {
         status: status,
         error: error,
         note: note,
+        detail: detail,
       );
 
   /// Export form. This shape is the project's most important artefact: later
@@ -218,6 +228,9 @@ class BlePacket {
         'status': status.wireName,
         'error': error,
         'note': note,
+        // Added in export schema v2. Absent-or-null means "no structured
+        // detail", which is every packet except service discovery.
+        'detail': detail,
       };
 
   factory BlePacket.fromJson(Map<String, dynamic> json) => BlePacket(
@@ -237,6 +250,7 @@ class BlePacket {
             : PacketStatus.fromWire(json['status'] as String),
         error: json['error'] as String?,
         note: json['note'] as String?,
+        detail: (json['detail'] as Map?)?.cast<String, dynamic>(),
       );
 
   static int? _parseHandle(Object? raw) {

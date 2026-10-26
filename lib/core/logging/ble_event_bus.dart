@@ -55,6 +55,7 @@ class BleEventBus {
     PacketStatus status = PacketStatus.ok,
     String? error,
     String? note,
+    Map<String, dynamic>? detail,
   }) {
     final packet = BlePacket(
       sessionId: null,
@@ -71,6 +72,7 @@ class BleEventBus {
       status: status,
       error: error,
       note: note,
+      detail: detail,
     );
 
     _recent.addLast(packet);

@@ -280,6 +280,7 @@ class ResearchRepository {
         'status': p.status.wireName,
         'error': p.error,
         'note': p.note,
+        'detail_json': p.detail == null ? null : jsonEncode(p.detail),
       };
 
   BlePacket _packetFromRow(Map<String, Object?> row) => BlePacket(
@@ -298,6 +299,10 @@ class ResearchRepository {
         status: PacketStatus.fromWire(row['status'] as String),
         error: row['error'] as String?,
         note: row['note'] as String?,
+        detail: row['detail_json'] == null
+            ? null
+            : (jsonDecode(row['detail_json'] as String) as Map)
+                .cast<String, dynamic>(),
       );
 
   BleDeviceRecord _deviceFromRow(Map<String, Object?> row) => BleDeviceRecord(

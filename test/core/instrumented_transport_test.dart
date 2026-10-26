@@ -5,6 +5,7 @@ import 'package:oraimo_lab/core/bluetooth/ble_transport.dart';
 import 'package:oraimo_lab/core/bluetooth/instrumented_ble_transport.dart';
 import 'package:oraimo_lab/core/logging/ble_event_bus.dart';
 import 'package:oraimo_lab/core/models/ble_packet.dart';
+import 'package:oraimo_lab/core/models/gatt_models.dart';
 
 import '../support/fake_ble_transport.dart';
 
@@ -150,6 +151,52 @@ void main() {
       await transport.subscribe(serviceUuid: svc, characteristicUuid: chr);
       expect(bus.recent.single.operation, PacketOperation.subscribe);
       expect(fake.subscribedCharacteristics, contains(chr));
+    });
+  });
+
+  group('service discovery', () {
+    test('records the whole attribute database, not just a count', () async {
+      fake.services = const [
+        GattService(
+          uuid: svc,
+          characteristics: [
+            GattCharacteristic(
+              uuid: chr,
+              serviceUuid: svc,
+              properties: GattProperties(write: true, notify: true),
+              descriptors: [
+                GattDescriptor(uuid: '00002902-0000-1000-8000-00805f9b34fb'),
+              ],
+            ),
+          ],
+        ),
+      ];
+
+      await transport.discoverServices();
+
+      final packet = bus.recent.single;
+      expect(packet.operation, PacketOperation.discoverServices);
+      expect(packet.note, '1 services, 1 characteristics');
+      expect(packet.payloadHex, isEmpty,
+          reason: 'the tree is not wire bytes and must not pose as a payload');
+
+      final services = packet.detail!['services'] as List;
+      final characteristic =
+          (services.single['characteristics'] as List).single as Map;
+      expect(services.single['uuid'], svc);
+      expect(characteristic['uuid'], chr);
+      expect(characteristic['propertyLabels'], ['WRITE', 'NOTIFY']);
+      expect((characteristic['descriptors'] as List).single['uuid'],
+          '00002902-0000-1000-8000-00805f9b34fb');
+    });
+
+    test('a failed discovery carries no detail', () async {
+      await fake.disconnect();
+      await expectLater(
+          transport.discoverServices(), throwsA(isA<BleConnectionException>()));
+      final failure = bus.recent.last;
+      expect(failure.status, PacketStatus.failed);
+      expect(failure.detail, isNull);
     });
   });
 

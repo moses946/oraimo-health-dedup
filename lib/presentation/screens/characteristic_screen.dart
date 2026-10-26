@@ -16,6 +16,7 @@ import '../../core/hex/hex_codec.dart';
 import '../../core/models/ble_packet.dart';
 import '../../core/models/ble_uuid.dart';
 import '../../core/models/gatt_models.dart';
+import '../../core/models/sig_assigned_numbers.dart';
 import '../../core/providers.dart';
 import '../widgets/hex_view.dart';
 import '../widgets/packet_tile.dart';
@@ -156,6 +157,11 @@ class _CharacteristicScreenState extends ConsumerState<CharacteristicScreen> {
                   _characteristic.uuid,
                   style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
                 ),
+                const SizedBox(height: 2),
+                Text(
+                  sigLabelFor(_characteristic.uuid),
+                  style: TextStyle(fontSize: 12, color: scheme.primary),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'in service ${_characteristic.serviceUuid}',
@@ -185,7 +191,8 @@ class _CharacteristicScreenState extends ConsumerState<CharacteristicScreen> {
                       style: Theme.of(context).textTheme.labelMedium),
                   for (final descriptor in _characteristic.descriptors)
                     SelectableText(
-                      '  ${BleUuid.tryParse(descriptor.uuid)?.short ?? descriptor.uuid}',
+                      '  ${BleUuid.tryParse(descriptor.uuid)?.short ?? descriptor.uuid}'
+                      '  ${sigNameFor(descriptor.uuid)?.name ?? ''}',
                       style: const TextStyle(
                           fontFamily: 'monospace', fontSize: 11),
                     ),

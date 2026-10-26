@@ -37,7 +37,14 @@ images rather than only picking from a fixed set stored on the watch — a
 promising sign for custom faces, but an inference from marketing, not
 evidence.
 
-### Route A — live GATT reconnaissance *(open now)*
+### Route A — live GATT reconnaissance *(done 2026-10-26)*
+
+**Result:** the full attribute database is in
+[PROTOCOL_STATUS.md](PROTOCOL_STATUS.md) O3: four vendor services (`feea`,
+`fee7`, `190e`, `ae00`) next to the standard ones, with write-without-response
+characteristics at `fee2`, `fee5`, `fee6`, `0004` and `ae01`. Which one, if
+any, carries watch faces is unknown. That is Route B's job: every UUID the APK
+uses can now be checked against this list.
 
 Our lab app on the Infinix, connected **read-only**. Gives the watch's real
 attribute database: every service and characteristic UUID, with properties.
@@ -192,6 +199,9 @@ would not prove anything.
 1. **Find the firmware version.** In Oraimo Health on the iPhone (device or
    about screen), or from our app: *Read all* reads the SIG *Firmware
    Revision String* (`2A26`) if the watch exposes Device Information.
+   **Done over BLE 2026-10-26:** firmware `JLQFNLKV3.5`, software
+   `823-8AW4-1.2.4` (PROTOCOL_STATUS O4). Whether Oraimo Health shows the same
+   version string is still to check.
 2. **Check for a firmware update** in Oraimo Health. Crown support is the
    kind of thing that ships in an update.
 3. **Try rotation on list screens**, not just the watch face: the app list,
@@ -206,6 +216,10 @@ would not prove anything.
 After *Subscribe all* in our app, rotate the crown slowly for a few seconds
 and watch the packet monitor. Any packets that arrive only while rotating are
 interesting. **No packets proves nothing**, for the reason above.
+
+**Done 2026-10-26:** with all 8 notify/indicate characteristics subscribed,
+~10 s of rotation from 18:04 and one press produced **no packets** (nothing at
+all arrived in the 8 minutes after subscribing). Inconclusive, as expected.
 
 While in the APK (Route B), it is worth a search for settings related to
 "crown", "knob", "rotate" or "encoder" — some watches have a setting that

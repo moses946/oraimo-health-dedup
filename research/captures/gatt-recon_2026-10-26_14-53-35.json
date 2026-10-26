@@ -1,0 +1,1500 @@
+{
+  "schemaVersion": 2,
+  "exportedAt": "2026-10-26T15:11:18.845984Z",
+  "generator": "oraimo_lab",
+  "session": {
+    "id": "1793026415705881",
+    "name": "gatt-recon",
+    "source": "live",
+    "device": {
+      "name": null,
+      "address": null
+    },
+    "startedAt": "2026-10-26T14:53:35.705909Z",
+    "endedAt": "2026-10-26T15:10:02.404479Z",
+    "notes": null,
+    "sourceFileName": null,
+    "packetCount": 58
+  },
+  "device": {
+    "name": null,
+    "address": null
+  },
+  "startedAt": "2026-10-26T14:53:35.705909Z",
+  "events": [
+    {
+      "seq": 0,
+      "timestamp": "2026-10-26T14:53:45.879388Z",
+      "elapsedUs": 10136270,
+      "direction": "local",
+      "operation": "scan_result",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "scan started",
+      "detail": null
+    },
+    {
+      "seq": 1,
+      "timestamp": "2026-10-26T14:55:56.193533Z",
+      "elapsedUs": 140450417,
+      "direction": "local",
+      "operation": "scan_result",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "scan started",
+      "detail": null
+    },
+    {
+      "seq": 2,
+      "timestamp": "2026-10-26T14:57:23.989970Z",
+      "elapsedUs": 228246850,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Connecting",
+      "detail": null
+    },
+    {
+      "seq": 3,
+      "timestamp": "2026-10-26T14:57:23.990320Z",
+      "elapsedUs": 228247199,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Disconnected",
+      "detail": null
+    },
+    {
+      "seq": 4,
+      "timestamp": "2026-10-26T14:57:23.990397Z",
+      "elapsedUs": 228247274,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 23",
+      "detail": null
+    },
+    {
+      "seq": 5,
+      "timestamp": "2026-10-26T14:57:24.994293Z",
+      "elapsedUs": 229251174,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Connecting",
+      "detail": null
+    },
+    {
+      "seq": 6,
+      "timestamp": "2026-10-26T14:57:24.994634Z",
+      "elapsedUs": 229251514,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Disconnected",
+      "detail": null
+    },
+    {
+      "seq": 7,
+      "timestamp": "2026-10-26T14:57:24.994806Z",
+      "elapsedUs": 229251687,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 23",
+      "detail": null
+    },
+    {
+      "seq": 8,
+      "timestamp": "2026-10-26T14:57:26.997525Z",
+      "elapsedUs": 231254404,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Connecting",
+      "detail": null
+    },
+    {
+      "seq": 9,
+      "timestamp": "2026-10-26T14:57:26.997798Z",
+      "elapsedUs": 231254676,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Disconnected",
+      "detail": null
+    },
+    {
+      "seq": 10,
+      "timestamp": "2026-10-26T14:57:26.997881Z",
+      "elapsedUs": 231254760,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 23",
+      "detail": null
+    },
+    {
+      "seq": 11,
+      "timestamp": "2026-10-26T14:57:29.587437Z",
+      "elapsedUs": 233844320,
+      "direction": "phone_to_watch",
+      "operation": "connect",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "8D:62:CC:93:B8:1A",
+      "detail": null
+    },
+    {
+      "seq": 12,
+      "timestamp": "2026-10-26T14:57:29.587669Z",
+      "elapsedUs": 233844547,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Connected",
+      "detail": null
+    },
+    {
+      "seq": 13,
+      "timestamp": "2026-10-26T14:57:29.595564Z",
+      "elapsedUs": 233852454,
+      "direction": "phone_to_watch",
+      "operation": "connect",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "8D:62:CC:93:B8:1A",
+      "detail": null
+    },
+    {
+      "seq": 14,
+      "timestamp": "2026-10-26T14:57:30.768197Z",
+      "elapsedUs": 235025080,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 512",
+      "detail": null
+    },
+    {
+      "seq": 15,
+      "timestamp": "2026-10-26T14:57:30.768317Z",
+      "elapsedUs": 235025195,
+      "direction": "phone_to_watch",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "requested 512",
+      "detail": null
+    },
+    {
+      "seq": 16,
+      "timestamp": "2026-10-26T14:57:31.006433Z",
+      "elapsedUs": 235263314,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Connecting",
+      "detail": null
+    },
+    {
+      "seq": 17,
+      "timestamp": "2026-10-26T14:57:31.006886Z",
+      "elapsedUs": 235263768,
+      "direction": "local",
+      "operation": "connection_state_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "Connected",
+      "detail": null
+    },
+    {
+      "seq": 18,
+      "timestamp": "2026-10-26T14:57:31.006971Z",
+      "elapsedUs": 235263850,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 512",
+      "detail": null
+    },
+    {
+      "seq": 19,
+      "timestamp": "2026-10-26T14:57:31.206884Z",
+      "elapsedUs": 235463768,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 512",
+      "detail": null
+    },
+    {
+      "seq": 20,
+      "timestamp": "2026-10-26T14:57:31.206973Z",
+      "elapsedUs": 235463852,
+      "direction": "phone_to_watch",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "requested 512",
+      "detail": null
+    },
+    {
+      "seq": 21,
+      "timestamp": "2026-10-26T14:57:31.211485Z",
+      "elapsedUs": 235468368,
+      "direction": "phone_to_watch",
+      "operation": "connect",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "8D:62:CC:93:B8:1A",
+      "detail": null
+    },
+    {
+      "seq": 22,
+      "timestamp": "2026-10-26T14:57:31.646878Z",
+      "elapsedUs": 235903764,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 512",
+      "detail": null
+    },
+    {
+      "seq": 23,
+      "timestamp": "2026-10-26T14:57:31.646972Z",
+      "elapsedUs": 235903851,
+      "direction": "phone_to_watch",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "requested 512",
+      "detail": null
+    },
+    {
+      "seq": 24,
+      "timestamp": "2026-10-26T14:57:31.651736Z",
+      "elapsedUs": 235908620,
+      "direction": "phone_to_watch",
+      "operation": "connect",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "8D:62:CC:93:B8:1A",
+      "detail": null
+    },
+    {
+      "seq": 25,
+      "timestamp": "2026-10-26T14:57:32.084985Z",
+      "elapsedUs": 236341870,
+      "direction": "local",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "MTU 512",
+      "detail": null
+    },
+    {
+      "seq": 26,
+      "timestamp": "2026-10-26T14:57:32.085072Z",
+      "elapsedUs": 236341952,
+      "direction": "phone_to_watch",
+      "operation": "mtu_change",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "requested 512",
+      "detail": null
+    },
+    {
+      "seq": 27,
+      "timestamp": "2026-10-26T14:59:02.434690Z",
+      "elapsedUs": 326691571,
+      "direction": "phone_to_watch",
+      "operation": "discover_services",
+      "service": null,
+      "characteristic": null,
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": "9 services, 21 characteristics",
+      "detail": {
+        "services": [
+          {
+            "uuid": "00001800-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "00002a00-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": true,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ",
+                  "WRITE"
+                ],
+                "descriptors": []
+              }
+            ]
+          },
+          {
+            "uuid": "00001801-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "00002a05-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": true,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "INDICATE"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "0000180d-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "00002a37-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": true,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "NOTIFY"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              },
+              {
+                "uuid": "00002a38-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ"
+                ],
+                "descriptors": []
+              }
+            ]
+          },
+          {
+            "uuid": "0000180f-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "00002a19-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": true,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ",
+                  "NOTIFY"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "0000180a-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "00002a25-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "00002a26-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "00002a28-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "00002a29-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ"
+                ],
+                "descriptors": []
+              }
+            ]
+          },
+          {
+            "uuid": "0000feea-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "0000fee1-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": true,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ",
+                  "NOTIFY"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              },
+              {
+                "uuid": "0000fee2-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": true,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "WRITE_NR"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "0000fee3-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": true,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "NOTIFY"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              },
+              {
+                "uuid": "0000fee4-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "0000fee5-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": true,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "WRITE_NR"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "0000fee6-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": true,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "WRITE_NR"
+                ],
+                "descriptors": []
+              }
+            ]
+          },
+          {
+            "uuid": "0000fee7-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "0000fec9-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "0000fea1-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": true,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": true,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "READ",
+                  "NOTIFY"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "0000190e-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "00000004-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": true,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "WRITE_NR"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "00000003-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": true,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "NOTIFY"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "0000ae00-0000-1000-8000-00805f9b34fb",
+            "isPrimary": true,
+            "includedServices": [],
+            "characteristics": [
+              {
+                "uuid": "0000ae01-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": true,
+                  "write": false,
+                  "notify": false,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "WRITE_NR"
+                ],
+                "descriptors": []
+              },
+              {
+                "uuid": "0000ae02-0000-1000-8000-00805f9b34fb",
+                "handle": null,
+                "properties": {
+                  "broadcast": false,
+                  "read": false,
+                  "writeWithoutResponse": false,
+                  "write": false,
+                  "notify": true,
+                  "indicate": false,
+                  "authenticatedSignedWrites": false,
+                  "extendedProperties": false
+                },
+                "propertyLabels": [
+                  "NOTIFY"
+                ],
+                "descriptors": [
+                  {
+                    "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+                    "handle": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "seq": 28,
+      "timestamp": "2026-10-26T14:59:13.965783Z",
+      "elapsedUs": 338222664,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "00001800-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a00-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 29,
+      "timestamp": "2026-10-26T14:59:14.125760Z",
+      "elapsedUs": 338382642,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "00001800-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a00-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "6F7261696D6F2057617463682036525F42383141",
+      "payloadLength": 20,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 30,
+      "timestamp": "2026-10-26T14:59:14.125882Z",
+      "elapsedUs": 338382759,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000180d-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a38-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 31,
+      "timestamp": "2026-10-26T14:59:14.215660Z",
+      "elapsedUs": 338472542,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000180d-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a38-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "01",
+      "payloadLength": 1,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 32,
+      "timestamp": "2026-10-26T14:59:14.215712Z",
+      "elapsedUs": 338472590,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000180f-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a19-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 33,
+      "timestamp": "2026-10-26T14:59:14.313514Z",
+      "elapsedUs": 338570397,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000180f-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a19-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "04",
+      "payloadLength": 1,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 34,
+      "timestamp": "2026-10-26T14:59:14.313555Z",
+      "elapsedUs": 338570432,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a25-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 35,
+      "timestamp": "2026-10-26T14:59:14.459485Z",
+      "elapsedUs": 338716366,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a25-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "3442424546383741",
+      "payloadLength": 8,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 36,
+      "timestamp": "2026-10-26T14:59:14.459526Z",
+      "elapsedUs": 338716404,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a26-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 37,
+      "timestamp": "2026-10-26T14:59:14.558127Z",
+      "elapsedUs": 338815010,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a26-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "4A4C51464E4C4B56332E35",
+      "payloadLength": 11,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 38,
+      "timestamp": "2026-10-26T14:59:14.558168Z",
+      "elapsedUs": 338815047,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a28-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 39,
+      "timestamp": "2026-10-26T14:59:14.656229Z",
+      "elapsedUs": 338913112,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a28-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "3832332D384157342D312E322E34",
+      "payloadLength": 14,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 40,
+      "timestamp": "2026-10-26T14:59:14.656270Z",
+      "elapsedUs": 338913149,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a29-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 41,
+      "timestamp": "2026-10-26T14:59:14.756681Z",
+      "elapsedUs": 339013574,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000180a-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a29-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "4D4F594F554E472D5632",
+      "payloadLength": 10,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 42,
+      "timestamp": "2026-10-26T14:59:14.756741Z",
+      "elapsedUs": 339013620,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000feea-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fee1-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 43,
+      "timestamp": "2026-10-26T14:59:14.854882Z",
+      "elapsedUs": 339111764,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000feea-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fee1-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "000000000000000000000000",
+      "payloadLength": 12,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 44,
+      "timestamp": "2026-10-26T14:59:14.854920Z",
+      "elapsedUs": 339111799,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000feea-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fee4-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 45,
+      "timestamp": "2026-10-26T14:59:14.947945Z",
+      "elapsedUs": 339204829,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000feea-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fee4-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 46,
+      "timestamp": "2026-10-26T14:59:14.947994Z",
+      "elapsedUs": 339204872,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000fee7-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fec9-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 47,
+      "timestamp": "2026-10-26T14:59:15.094588Z",
+      "elapsedUs": 339351469,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000fee7-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fec9-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "8D62CC93B81A",
+      "payloadLength": 6,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 48,
+      "timestamp": "2026-10-26T14:59:15.094619Z",
+      "elapsedUs": 339351496,
+      "direction": "phone_to_watch",
+      "operation": "read_request",
+      "service": "0000fee7-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fea1-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 49,
+      "timestamp": "2026-10-26T14:59:15.192220Z",
+      "elapsedUs": 339449104,
+      "direction": "watch_to_phone",
+      "operation": "read_response",
+      "service": "0000fee7-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fea1-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "01000000",
+      "payloadLength": 4,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 50,
+      "timestamp": "2026-10-26T14:59:57.895630Z",
+      "elapsedUs": 382152509,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "00001801-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a05-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 51,
+      "timestamp": "2026-10-26T14:59:57.992669Z",
+      "elapsedUs": 382249548,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "0000180d-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a37-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 52,
+      "timestamp": "2026-10-26T14:59:58.090177Z",
+      "elapsedUs": 382347056,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "0000180f-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00002a19-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 53,
+      "timestamp": "2026-10-26T14:59:58.189647Z",
+      "elapsedUs": 382446526,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "0000feea-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fee1-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 54,
+      "timestamp": "2026-10-26T14:59:58.290404Z",
+      "elapsedUs": 382547283,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "0000feea-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fee3-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 55,
+      "timestamp": "2026-10-26T14:59:58.384296Z",
+      "elapsedUs": 382641176,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "0000fee7-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000fea1-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 56,
+      "timestamp": "2026-10-26T14:59:58.578494Z",
+      "elapsedUs": 382835374,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "0000190e-0000-1000-8000-00805f9b34fb",
+      "characteristic": "00000003-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    },
+    {
+      "seq": 57,
+      "timestamp": "2026-10-26T14:59:58.672161Z",
+      "elapsedUs": 382929040,
+      "direction": "phone_to_watch",
+      "operation": "subscribe",
+      "service": "0000ae00-0000-1000-8000-00805f9b34fb",
+      "characteristic": "0000ae02-0000-1000-8000-00805f9b34fb",
+      "descriptor": null,
+      "handle": null,
+      "payload": "",
+      "payloadLength": 0,
+      "status": "ok",
+      "error": null,
+      "note": null,
+      "detail": null
+    }
+  ]
+}

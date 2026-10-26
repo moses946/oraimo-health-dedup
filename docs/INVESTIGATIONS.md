@@ -60,10 +60,25 @@ every UUID found later in the APK from a guess into something checkable.
 Oraimo Health 2.0.7 drives OSW-823 through the `com.crrepa.ble` (MOYOUNG)
 SDK. Its face-transfer engine sends over `fee6`, in `FE EA`-framed commands,
 with the watch requesting chunks by index and a whole-file CRC-16 (poly
-0x1021, init `0xFEEA`) checked at the end. Still open: which of the SDK's
-face paths this watch takes (it picks at runtime by MCU platform), and the
-face file's own format — next leads are `libjl_bmp_convert.so` and
-`assets/DialCustom`. Route C would confirm or break all of it.
+0x1021, init `0xFEEA`) checked at the end.
+
+**Second pass, same day** (A11–A16): market faces are prebuilt files from
+Oraimo's server, sent byte for byte, so the app never builds their format.
+Custom backgrounds are converted on the phone according to the compression
+type the watch reports. The SDK's own encoding is RGB565, raw or run-length
+(header `08 21`), optionally LZO. The 6R's advertisement decodes as
+`PLATFORM_JIELI`, which points at JieLi's native converter (BR28/701N, RGB,
+no pack). `assets/DialCustom` belongs to another vendor's SDK.
+
+What is left, in order of cost:
+
+1. **A market face file.** Getting one from Oraimo's server would show the
+   real format. That means a network request to their service, so it is a
+   decision for you.
+2. **The JieLi converter's output.** Reading `libjl_bmp_convert.so` needs a
+   native disassembler (Ghidra), which this laptop does not have.
+3. **Route C**, a capture of a real install, which answers everything above
+   at once.
 
 Oraimo Health installs on the Infinix from the Play Store **without pairing
 the watch**, so the APK can be pulled without touching the iPhone setup. See

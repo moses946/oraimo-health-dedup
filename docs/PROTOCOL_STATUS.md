@@ -239,6 +239,57 @@ in O3, that part is evidence; the behaviour around it is not.
   methods mention a crown, knob, rotation or encoder. The only crown
   settings in the app (`supportSetCrownTouchState`, `isCrownHapticFeedback`)
   belong to a different vendor SDK, `com.base.sdk`.
+- **A11 — two face routes on the MOY path.** Oraimo code calls
+  `sendWatchFace(new CRPWatchFaceInfo(file, DEFAULT))` with
+  `ClockDialBean.filePath` (`pf/e.R`): a **prebuilt file, sent verbatim**.
+  `sendWatchFace` requests the 2M PHY (`setPreferredPhy(2, 2, 0)`) and hands
+  the file to the generic engine of A5 (`v0/c` → `h0/d`) with no chip-specific
+  branch. The app does not build these files and none for MOY is bundled;
+  their format is whatever Oraimo's server serves. The other route is a
+  **custom background photo** (`sendWatchFaceBackground` +
+  `sendWatchFaceLayout`), converted on the phone according to the
+  compression type the watch reports in its layout reply (A12).
+- **A12 — compression types and converters.**
+  `CRPWatchFaceLayoutInfo$CompressionType` values: LZO=0, RGB_DEDUPLICATION=1,
+  RGB_LINE=2, BLUETRUM=3, RTK_8773=4, JIELI=5, JIELI_707=21, SIFLI=254,
+  ORIGINAL=255. The background factory (`w0/i.a`) maps them to converters:
+  ORIGINAL→`w0/c` (no conversion), LZO→`w0/f` (`wf.bin` →
+  `MiniLzoHelper.compress` → `wf_lzo.bin`), RGB_LINE→`w0/e`, AVATAR→`j0/a`,
+  BLUETRUM→`w0/b` (adds header bytes), RTK_8773→`w0/g`, JIELI→`w0/d`;
+  SIFLI has no entry. JIELI_707 has its own path (`x0/c`).
+- **A13 — the SDK's own image encoding** (`y0/b`, `y0/c`, `c1/p`): pixels
+  read row by row with `getPixel(x, y)`, converted to **RGB565**
+  (`r>>3<<11 | g>>2<<5 | b>>3`); the value `0x0821` is bumped to `0x0822`.
+  Serialised either raw (2 bytes per pixel, **big-endian**) or run-length:
+  header **`08 21`**, then `[RGB565 BE][count, 1 byte]` per run, runs ≤ 255;
+  the run-length form is used only when shorter than `w×h×2` (115200 =
+  240×240×2 when the size is unknown). That the header equals the bumped
+  colour suggests `0x0821` is reserved as the run-length marker — an
+  inference, not something the code states. The size goes first as command
+  `0x6E` with a 4-byte length ("sendBitmapSize").
+- **A14 — JieLi conversion.** For JIELI, `w0/d` writes each bitmap to a file
+  and calls `com.jieli.bmp_convert.BmpConvert.bitmapConvert` (library 1.6.0,
+  `libjl_bmp_convert.so`) with type **3 = `TYPE_701N_RGB_NO_PACK`** (same
+  value as `TYPE_BR_28_RAW`) and `ConvertParam` format **1 =
+  `FORMAT_ARGB_8565`**. The native library exposes `br23_*`, `br28_*` and
+  `br35_*` `bmp/png/jpeg_to_res` converters and bundles ETCPACK (ETC1/ETC2);
+  its output format is native code and has not been read. The SDK wraps the
+  result: `[05][FF FF FF][first file length, 4 bytes][.bin contents…]`.
+- **A15 — the advertisement says JieLi.** `CRPScanRecordParser.parseScanRecord`
+  takes the service-data element (AD type `0x16`) whose UUID is `0xFEEA`
+  and reads bytes 2–4 as `firmwareType` (ASCII, `'0'` removed), byte 5 as
+  the MCU platform (1 NORDIC, 2 HUNTERSUN, 3 REALTEK, 4 GOODIX, 5 SIFLI,
+  6 JIELI), byte 6 as chip id and bytes 7–8 as a function value. Applied to
+  the 6R's captured service data (O1, `EA FE 38 41 57 06 01 00 91`):
+  `firmwareType = "8AW"`, **`PLATFORM_JIELI`**, chip id 1, function
+  `0x9100`. `8AW` matches the watch's own `2a28` `823-8AW4-1.2.4` (O4).
+  Oraimo uses the platform for firmware updates (`pf/e.X`); face conversion
+  follows the compression type instead (A12).
+- **A16 — the `DialCustom` assets are not for this watch.** They are layout
+  templates (per-element PNG glyphs, with size and position encoded in empty
+  `config_WxH_XxY.txt` filenames) read by the UTE SDK
+  (`com.yc.utesdk.watchface.open.WatchFaceUtil`) and one other vendor's
+  code. The `TOPSTEP`-signed `.bin` dials belong to the TS vendor.
 - **A10 — UUIDs not accounted for.** `ae00`/`ae01`/`ae02` appear only in
   another vendor's table (`utenif/utenelse`, the UTE SDK). `190e` and `0004`
   appear nowhere in the DEX strings or native libraries; `00000003-…` only
@@ -297,12 +348,13 @@ watch sends unasked.
 `fee6`, in chunks the watch requests by index, with a whole-file CRC-16
 (poly 0x1021, init `0xFEEA`) compared at the end.
 
-**Caveats:** the SDK has several face paths (plain, photo, AI, video, JieLi,
-HiSilicon) selected at runtime, partly by the device's MCU platform
-(`CRPScanDevice.getMcuPlatform`); which one this watch takes is not
-determinable statically. The file's own format (header, image encoding,
-compression) has not been traced yet — `libjl_bmp_convert.so` and the
-`assets/DialCustom` set are the next leads.
+**Caveats:** market faces are prebuilt files sent verbatim (A11), so their
+format is the server's and has not been seen. Custom backgrounds are
+converted on the phone by compression type (A12–A14). The 6R advertises
+`PLATFORM_JIELI` (A15), which makes the JIELI or JIELI_707 converter likely,
+but the type the watch actually reports comes back only in reply to a layout
+query — a write this project has not made. If it is JIELI, the image bytes
+come from JieLi's native BR28/701N converter, whose output format is unread.
 
 **Supported if** a capture of a real face install shows `FE EA`-framed
 writes and file chunks on `fee6`, and a CRC that matches A6 over the file.

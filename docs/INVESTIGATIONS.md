@@ -54,7 +54,16 @@ carries the full tree.
 This does not show the watch-face protocol by itself. What it does is turn
 every UUID found later in the APK from a guess into something checkable.
 
-### Route B — static analysis of the Android APK *(open now)*
+### Route B — static analysis of the Android APK *(first pass done 2026-10-26)*
+
+**Result** (details in [PROTOCOL_STATUS.md](PROTOCOL_STATUS.md) A1–A6, H3):
+Oraimo Health 2.0.7 drives OSW-823 through the `com.crrepa.ble` (MOYOUNG)
+SDK. Its face-transfer engine sends over `fee6`, in `FE EA`-framed commands,
+with the watch requesting chunks by index and a whole-file CRC-16 (poly
+0x1021, init `0xFEEA`) checked at the end. Still open: which of the SDK's
+face paths this watch takes (it picks at runtime by MCU platform), and the
+face file's own format — next leads are `libjl_bmp_convert.so` and
+`assets/DialCustom`. Route C would confirm or break all of it.
 
 Oraimo Health installs on the Infinix from the Play Store **without pairing
 the watch**, so the APK can be pulled without touching the iPhone setup. See
@@ -172,6 +181,14 @@ the watch's decoder accepts. If the Android app deliberately strips or
 replaces emoji, that is close to a confession that the firmware cannot draw
 them.
 
+**Done 2026-10-26 — it does.** The SDK encodes notification text as UTF-8,
+but first replaces every emoji, and many BMP symbols (☀ ★ ☺ ♥, dingbats,
+© ® ™), with the literal text `[emoji]`, except glyphs the watch reports
+supporting (PROTOCOL_STATUS A7, A8, H4). That covers line 3 of the glyph
+test as well as line 5, so if the filter mirrors the font, **E1 is too
+generous**: the limit would be below the BMP. The glyph test on the watch is
+what decides it.
+
 ---
 
 ## 3. The crown rotates but does nothing
@@ -225,3 +242,9 @@ While in the APK (Route B), it is worth a search for settings related to
 "crown", "knob", "rotate" or "encoder" — some watches have a setting that
 enables rotation or reverses its direction. This is a **speculative** lead,
 not an expectation.
+
+**Done 2026-10-26 — nothing for this watch.** The SDK that drives OSW-823
+has no crown, knob, rotation or encoder setting among its 422 connection
+methods. The app's only crown settings belong to another vendor's SDK
+(PROTOCOL_STATUS A9). That points back at firmware or hardware, and at the
+checklist above.

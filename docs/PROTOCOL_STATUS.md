@@ -1,8 +1,8 @@
 # Protocol status
 
 **Last updated:** 2026-10-26, after the first read-only GATT reconnaissance
-of the real watch (session `gatt-recon`). Investigation plans are in
-[INVESTIGATIONS.md](INVESTIGATIONS.md).
+of the real watch (session `gatt-recon`) and a static reading of Oraimo
+Health 2.0.7. Investigation plans are in [INVESTIGATIONS.md](INVESTIGATIONS.md).
 
 ## What is known about the Oraimo Watch 6R (OSW-823) protocol
 
@@ -155,24 +155,118 @@ with what the watch's own screen showed.
   crown for ~10 s from 18:04, one press, and a minute idle.
 - The session made **no characteristic writes**.
 
+## APK observations — Oraimo Health 2.0.7
+
+Static reading of `com.transsion.oraimohealth` 2.0.7 (versionCode 87), pulled
+from the Infinix on 2026-10-26. The APK and everything extracted from it stay
+in the gitignored `research/apk/` and `research/decompiled/`. No decompiler
+was available (the JDK/jadx download was refused), so this comes from
+parsing the DEX files directly: the string table, method and field
+references, and instruction-level dumps of individual methods. Class names
+below are R8-obfuscated as they appear (`com/crrepa/h0/d` etc.) and will
+change between app versions.
+
+**These are what the code says, not what the watch does.** Each one stays a
+hypothesis until a capture shows it on the wire. Where a UUID also appears
+in O3, that part is evidence; the behaviour around it is not.
+
+- **A1 — the app maps this watch to a MOYOUNG SDK.** `DeviceTypeEnum`
+  (`com.transsion.data.model.enumeration`) constructs `OSW_823` with
+  productCode `OSW-823`, displayName `oraimo Watch 6R`, brand `TS-2G` and
+  **developer `MOY`** (argument order read from the constructor's field
+  stores). Oraimo code branches on `developer == "MOY"` (e.g. `ie/d`, which
+  then calls `pf/d`, the largest caller of `com.crrepa.ble`). The app
+  bundles at least ten vendor SDKs (`com.zh.ble`, `topstep`, `yc.utesdk`,
+  `realsil`, `sjbt`, `sifli`, …); `com.crrepa.ble` (`CRPBleClient`,
+  `CRPBleConnection`) is the one on the MOY path.
+- **A2 — the crrepa SDK's GATT map matches `feea` on the watch.**
+  `com/crrepa/q/b.<init>` looks for a service whose UUID contains `feea` and
+  picks out `fee1`, `fee2`, `fee3`, `fee5`, `fee6`, `fee7`, `fee8`, `fee9`,
+  plus `180a`/`2a24`/`2a28`/`2a29`, `180f`/`2a19`, `180d`/`2a37` and
+  `3802`/`4a02`. The watch has `fee1`–`fee6` but not `fee7`–`fee9` or
+  `3802` (O3). Notifications are dispatched by characteristic in
+  `com/crrepa/m/a`: `fee1`, `2a37`, `fee7`, `fee8`, `2a19`, `4a02`.
+- **A3 — write routing.** Every SDK write goes through a queue
+  (`com/crrepa/p/c.d`) and is routed by message type:
+
+  | message type | written to |
+  |---|---|
+  | 0, 8 (commands) | characteristic chosen by frame byte 4 (the command id): 1→`fee5`, 2→`fee6`, 3→`4a02`, 4→`fee9`, else **`fee2`** |
+  | 1 | `fee5` |
+  | 2 | `fee6` |
+  | 38 | `4a02` |
+  | 39 | `fee9` (logged as the "hisilicon characteristic") |
+
+  Writes are chunked to a maximum from `com/crrepa/f/y1.a()` and use
+  write-without-response when a flag is set (`m/f.h`).
+- **A4 — command frame** (`com/crrepa/f/y1.a(byte cmd, byte[] payload)`):
+  `FE EA | b2 | len & 0xFF | cmd | payload…`, where `len = payload + 5` and
+  `b2` is `0x10` when `l/b.d()` returns 20, otherwise `0x20 + (len >> 8)`.
+  No checksum in the frame.
+- **A5 — watch-face transfer engine** (`com/crrepa/h0/*`):
+  `h0/a.b` ("sendWatchFaceMessage") sends as message type 2, i.e. **`fee6`**;
+  `h0/d.sendMessage` sends as type 1 or 2 (`fee5`/`fee6`). The watch drives
+  the transfer: it asks for chunk indices (`h0/d.transFileIndex`, which
+  rejects an index that goes backwards, `"offset is error"`), the phone
+  answers each with the file slice read via `RandomAccessFile`, and at the
+  end the watch reports a CRC that the phone compares with its own and
+  answers with a pass/fail (`checkFileCRC`, `sendFileCheckResult`).
+  Bitmap faces have their own size/bytes steps (`h0/a`: "sendBitmapSize",
+  "sendBitmapBytes start = …").
+- **A6 — the file CRC is CRC-16/0x1021, seeded with `0xFEEA`.**
+  `h0/e.c` runs `h0/c.a` over the file in 4096-byte blocks from a header
+  offset, starting from 65258 (`0xFEEA`). `h0/c.a` is the table-free CRC-16
+  (byte swap, then shifts of 4, 12, 5). A literal Python port of the
+  disassembly gives `0x29B1` for `"123456789"` with init `0xFFFF` (the
+  CRC-16/CCITT-FALSE check value) and agrees with a bitwise reference
+  (poly 0x1021, MSB-first, no reflection, no xorout) on random input.
+- **A7 — notification text** (`com/crrepa/i/a.a(CRPMessageInfo)`): `title +
+  ":" + message`, passed through the emoji filter (A8), truncated by
+  characters until its **UTF-8** encoding fits the watch's message length,
+  then sent as command 65 (`0x41`) with payload `[type][UTF-8 text]`.
+  Also: `querySupportEmojiCount`/`List` send command `0xBB` with payloads
+  `16 00` and `16 01 nn`; `queryMessageLength` exists.
+- **A8 — the SDK replaces emoji with the text `[emoji]`.** `com/crrepa/c1/g`
+  builds a set of ~4,000 code units (U+00A9, U+00AE, U+2194–U+2B55,
+  U+3030, U+303D, U+3297/9, the U+1F000–U+1FAFF emoji blocks, U+200D ZWJ,
+  U+FE0E, U+20E3, U+E007F). `c1/g.a(String)` first replaces 📹 (U+1F4F9)
+  with `[Video Camera]`, then walks the text, joining surrogate pairs, and
+  replaces every code point in the set with `[emoji]`. Code points the
+  watch reports as supported are removed from the set first, so they pass
+  through. Both insertion and lookup cast the code point to a 16-bit `char`,
+  so U+1F600 is stored as `0xF600`.
+- **A9 — no crown in the MOY path.** None of `CRPBleConnection`'s 422
+  methods mention a crown, knob, rotation or encoder. The only crown
+  settings in the app (`supportSetCrownTouchState`, `isCrownHapticFeedback`)
+  belong to a different vendor SDK, `com.base.sdk`.
+- **A10 — UUIDs not accounted for.** `ae00`/`ae01`/`ae02` appear only in
+  another vendor's table (`utenif/utenelse`, the UTE SDK). `190e` and `0004`
+  appear nowhere in the DEX strings or native libraries; `00000003-…` only
+  in the `com.zhapp.ble` table. `fee7` as a *service* with `fec9`/`fea1`
+  is not referenced as such by the crrepa SDK. The app could still build
+  these UUIDs numerically; a string search cannot rule that out.
+
 ## Open hypotheses
 
 ### H1 — the vendor protocol comes from a MOYOUNG platform
 
-*Status: UNKNOWN. One clue, no test yet.*
+*Status: SUPPORTED by the APK (A1, A2). Not yet seen on the wire.*
 
 **Claim:** the watch's vendor services (`feea`, `fee7`, `190e`, `ae00`)
 implement a protocol from the company or SDK named in its Manufacturer Name
 String, so knowledge of that platform would transfer.
 
-**Evidence for:** `2a29` reads `MOYOUNG-V2` (O4). That is a string the
-firmware reports about itself, nothing more.
+**Evidence for:** `2a29` reads `MOYOUNG-V2` (O4). Oraimo Health assigns
+OSW-823 the developer code `MOY` and drives MOY devices with the
+`com.crrepa.ble` SDK, whose `feea` map names exactly the `fee1`, `fee2`,
+`fee3`, `fee5`, `fee6` the watch exposes (A1, A2) — the criterion set below.
 
-**Supported if** the Oraimo Health APK contains a MOYOUNG-named SDK whose
-code uses these same UUIDs.
+**Limits:** this covers `feea` only. `fee7`, `190e` and `ae00` are not
+explained by the crrepa SDK (A10).
 
-**Refuted if** the APK's BLE code is unrelated to anything MOYOUNG-named, or
-uses none of these UUIDs.
+**Refuted if** a capture of Oraimo Health talking to this watch shows its
+traffic on characteristics other than those in A3, or in a frame shape
+unlike A4.
 
 ### H2 — the watch only talks when spoken to
 
@@ -189,6 +283,51 @@ did not happen during the session.
 **Tested by** the APK (what Oraimo Health writes first after connecting), or a
 capture of a real session. Not by us writing to it — this project is
 read-only for now.
+
+**APK note:** consistent with A5, where the watch-face transfer is driven by
+the watch asking for chunks, and with the SDK sending query commands (A7)
+whose answers arrive as notifications. Neither shows what, if anything, the
+watch sends unasked.
+
+### H3 — watch faces go to `fee6`, framed and CRC-checked as in A4–A6
+
+*Status: UNKNOWN on the wire. Built entirely from APK reading.*
+
+**Claim:** Oraimo Health sends a watch face to this watch as a file over
+`fee6`, in chunks the watch requests by index, with a whole-file CRC-16
+(poly 0x1021, init `0xFEEA`) compared at the end.
+
+**Caveats:** the SDK has several face paths (plain, photo, AI, video, JieLi,
+HiSilicon) selected at runtime, partly by the device's MCU platform
+(`CRPScanDevice.getMcuPlatform`); which one this watch takes is not
+determinable statically. The file's own format (header, image encoding,
+compression) has not been traced yet — `libjl_bmp_convert.so` and the
+`assets/DialCustom` set are the next leads.
+
+**Supported if** a capture of a real face install shows `FE EA`-framed
+writes and file chunks on `fee6`, and a CRC that matches A6 over the file.
+
+**Refuted if** a face install uses another characteristic or service (for
+example `ae01`), or the CRC does not match.
+
+### H4 — emoji are stripped on the Android path because the firmware cannot draw them
+
+*Status: PLAUSIBLE from A8. Says nothing directly about the iPhone path.*
+
+**Claim:** the Android SDK replaces emoji and many BMP symbols with the text
+`[emoji]` (A8) because this watch's firmware cannot render them, unless the
+watch reports specific glyphs as supported.
+
+**Bearing on E1:** the filter covers BMP symbols such as ☀ ★ ☺ ♥ (U+2600–U+27BF)
+as well as 4-byte emoji. If it reflects the firmware's font, the limit is
+lower than the Basic Multilingual Plane, which the glyph test would show as
+line 3 failing — refuting E1 as stated.
+
+**Supported if** the glyph test (INVESTIGATIONS §2) shows symbols in the
+filter's ranges failing on the watch while characters outside them render.
+
+**Refuted if** characters in the filter's set render correctly on the watch
+from the iPhone.
 
 ### E1 — text handling stops at the Basic Multilingual Plane
 

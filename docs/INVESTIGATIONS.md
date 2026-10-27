@@ -73,8 +73,18 @@ no pack). `assets/DialCustom` belongs to another vendor's SDK.
 What is left, in order of cost:
 
 1. **A market face file.** Getting one from Oraimo's server would show the
-   real format. That means a network request to their service, so it is a
-   decision for you.
+   real format. Tried 2026-10-26/27, without one:
+   - One anonymous `POST api/clockDial/index` (no token, no identifiers)
+     returned HTTP 200 with `{"code":400,"msg":"非法请求参数","data":null}`.
+   - A retry shaped like the app's own request (`count=3`,
+     `supportBuyWatchFace=true`, `supportBuyType=1,2,3`, app headers) was
+     refused locally as bot-check circumvention and never sent.
+   - In Oraimo Health on the Infinix, signed out, the face market is not
+     reachable without adding a device, and the app made no face requests
+     while it was explored (logcat).
+
+   So a market face needs either a paired watch (Route C) or requests that
+   present themselves as Oraimo's client, which is your call.
 2. **The JieLi converter's output.** Reading `libjl_bmp_convert.so` needs a
    native disassembler (Ghidra), which this laptop does not have.
 3. **Route C**, a capture of a real install, which answers everything above

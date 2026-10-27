@@ -155,6 +155,48 @@ with what the watch's own screen showed.
   crown for ~10 s from 18:04, one press, and a minute idle.
 - The session made **no characteristic writes**.
 
+### O6 — two real watch-face installs (Route C, 2026-10-27)
+
+Captured with MediaTek DebugLoggerUI (ConnsysLog, HCI log), since the
+standard snoop file is not readable on this Infinix, while Oraimo Health 2.0.7
+on the Infinix installed two free market faces: "Crystal clock" (11:18) and
+"Neuro Grid" (11:20). Imported in the lab app (790 events, watch only). The
+session export is kept locally, not committed: it contains the account's user
+ID.
+
+- **Handles**, inferred from O3's order and checked against values read:
+  `0x0028` battery (`53` = 83 %), `0x0030` `2a28`, `0x0042` `fee1` (12 zero
+  bytes, as in O4), `0x0045` `fee2`, `0x0047` `fee3`, `0x004E` `fee6`.
+- **Framing** on `fee2` (phone → watch) and `fee3` (watch → phone) is
+  `FE EA 20 <len> <cmd> <payload>`, as A4 predicted.
+- **Face transfer:** the phone sends command `0x74` with the file size
+  (4 bytes, big-endian: `0000E934` = 59,700; `00025BD4` = 154,580). The watch
+  answers `0xBA` and then requests chunks by index (`74 00 00`, `74 00 01`, …).
+  Each 10,240-byte chunk goes to `fee6` as raw bytes, no framing, in 404-byte
+  writes. At the end the watch sends `74 FF FF` + 2 bytes, and the phone
+  replies `74 00 00 00 00`.
+- **CRC confirmed:** those 2 bytes are `0x8593` and `0x985C`, and
+  CRC-16/0x1021 seeded `0xFEEA` over the bytes sent gives exactly those
+  values (A6). Seeds `0xFFFF` and `0` do not.
+- **Firmware changed:** `2a28` read `823-8AW4-1.3.0`, where O4 read `1.2.4`
+  the day before. When the update happened is not yet established.
+
+### O7 — the face file, first look
+
+From the two files reassembled from O6 (kept in the gitignored
+`research/decompiled/faces/`; they are Oraimo's content). Structure read from
+two samples only; not yet verified by building one.
+
+- A 16-byte header: element count (35 / 30), `FF FF`, a 32-bit offset
+  (47,044 / 115,780) that points at what looks like a per-row offset table,
+  `8C 00 8C 00` (140 × 140, possibly a preview), then `10 00 B8 00`.
+- From byte 16, image sets: a 3-byte tag followed by 8-byte records
+  `offset u32 | width u16 | height u16`. Both faces open with two 10-image sets
+  (digits, large and small).
+- From byte 184, type-tagged layout elements with screen positions, including
+  one carrying `F0 00 F0 00` (240 × 240, the screen) and three `01 0A nn`
+  elements with what look like pivot coordinates (hands).
+
 ## APK observations — Oraimo Health 2.0.7
 
 Static reading of `com.transsion.oraimohealth` 2.0.7 (versionCode 87), pulled

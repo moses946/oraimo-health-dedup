@@ -307,6 +307,16 @@ in O3, that part is evidence; the behaviour around it is not.
   store, and the connected watch's `deviceSupplierName`, `deviceType`,
   `deviceDisplayName`, `deviceModel`, `deviceMac` and
   `deviceFirmwareVersion` to every request.
+- **A18 — binding is by user ID.** On connection Oraimo's device manager
+  (`tf/d`) either binds — `createBond(device.code, userId)`, logged
+  `bind : …`, which sends command `0xB0` with `00` + a 6-character code
+  (`"123456"` if empty, `com/crrepa/f/i.a`) — or verifies — `checkUserID`,
+  logged `verifyUserId...`, sending `0xB0` with `01` + a 32-character user ID
+  (`f/i.b`). The user ID comes from the app's account cache
+  (`com/transsion/devices/cache/b.x`). Removing the watch sends `0xF8` with no
+  payload (`removeBond`, `f/p.a`); `queryBtAddress` sends `0xF1 00`. What the
+  watch does on these commands is not in the APK. Implications for Route C
+  are in [ROUTE_C.md](ROUTE_C.md).
 - **A10 — UUIDs not accounted for.** `ae00`/`ae01`/`ae02` appear only in
   another vendor's table (`utenif/utenelse`, the UTE SDK). `190e` and `0004`
   appear nowhere in the DEX strings or native libraries; `00000003-…` only

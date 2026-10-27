@@ -103,7 +103,7 @@ A UUID found in the APK **and** present in Route A's GATT tree is strong
 evidence. Found only in the APK, it is still a hypothesis — decompiled code
 contains dead branches and support for other watch models.
 
-### Route C — capture a real install *(deferred, your decision)*
+### Route C — capture a real install *(deferred, your decision — see [ROUTE_C.md](ROUTE_C.md))*
 
 The definitive evidence: an HCI snoop log on Android while Oraimo Health
 installs face A, then face B ([CAPTURE_WORKFLOW.md](CAPTURE_WORKFLOW.md)).
